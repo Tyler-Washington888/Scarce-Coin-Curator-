@@ -1,12 +1,12 @@
-# Scarce-Coin-Curator
+# Scarce-Coin-Curations
 ## Project Description
 
 This app will provide digital asset investors with a focused list of cryto curriencies whose circulatiing supply is less than 100 million.
 
 ## API Sample 
- For this project I will use Coin Market Cap's API which is broken down into endpoint categories. I will specifically utilize the /cryptocurrency/* endpoint to access information around cryptocurrencies such as ordered lists and volume data.
+ For this project I will utilize Coin Market Cap's API and, more specifically, their cryptocurrency/* endpoint to access information around cryptocurrencies such as ordered lists and volume data.
 
-Data Snippet  
+Bitcoin example  
 ```
 {
       "id": 1,
@@ -42,7 +42,7 @@ Data Snippet
   ```
 
 ## Wireframe 
-[wireframe](https://whimsical.com/scarce-coin-curations-8Exmhe2QsSZ1VvwfedgKN7)
+[Wireframe](https://whimsical.com/scarce-coin-curations-8Exmhe2QsSZ1VvwfedgKN7)
 
 
 
@@ -55,22 +55,23 @@ Data Snippet
     - circulating supply 
     - total supply
     - market cap 
-    - 30 data chart 
+    - 30 day chart 
     - 90 day chart 
   - Create dropdown link to explain site 
 
 
 
 ## Post MVP 
-- Provide users with my top 5 list of scarcity tokens
-- Give users added info of each coin
+- Provide users with my top 5 list of 'scarcity tokens'
+- Present users added info on each coin when clicked 
   - exchange data 
   - white paper
   - protocol's website 
-- Allow users to highlight their favorite coins.
+- Allow users to highlight favorite coins.
 - Allow users to alter list. 
 
 ## Project Schedule 
+![Project](./Project-Schedule.png)
 
 
  
@@ -78,5 +79,5 @@ Data Snippet
 ![Matrix](./Matrix.png)
 
 
-## Times frames!
-
+## Times Frames
+![TF](./TimeFrame.png)
