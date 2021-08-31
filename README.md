@@ -1,1 +1,1 @@
-# Scarce-Coin-Curator-
+# Scarce-Coin-Curator
