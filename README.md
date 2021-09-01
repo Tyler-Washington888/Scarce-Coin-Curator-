@@ -38,7 +38,7 @@ Bitcoin example
     
         }
       }
-    }
+    },
     {
   ```
 
@@ -48,7 +48,7 @@ Bitcoin example
 
 
 ## MVP 
-  - Format coins in ordered list 
+  - Format coins in ordered list based on circulating supply
   - Display data for each coin 
     - coin ranking
     - name 
