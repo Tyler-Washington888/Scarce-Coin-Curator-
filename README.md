@@ -1,43 +1,44 @@
-# Scarce-Coin-Curations
+# Scarce-Coin-Curator
 ## Project Description
 
-This app will provide digital asset investors with a focused list of cryto curriencies whose circulatiing supply is less than 100 million.
+This app will provide digital asset investors with a focused list of crytocurrencies whose circulating supply is less than 20 million.
 
 ## API Sample 
- For this project I will utilize Coin Market Cap's API and, more specifically, their cryptocurrency/* endpoint to access information around cryptocurrencies such as ordered lists and volume data.
+ For this project I will utilize CoinGecko's API and, more specifically, their coins endpoint to access data on cryptocurrencies such as ordered lists and volume flucuations.
 
 Bitcoin example  
 ```
 {
-      "id": 1,
-      "name": "Bitcoin",
-      "symbol": "BTC",
-      "slug": "bitcoin",
-      "num_market_pairs": 8858,
-      "date_added": "2013-04-28T00:00:00.000Z",
-      "max_supply": 21000000,
-      "circulating_supply": 18802575,
-      "total_supply": 18802575,
-      "platform": null,
-      "cmc_rank": 1,
-      "last_updated": "2021-08-31T13:36:29.000Z",
-      "quote": {
-        "USD": {
-          "price": 47765.48645352477,
-          "volume_24h": 33513004644.55817,
-          "percent_change_1h": -0.46474154,
-          "percent_change_24h": 0.14617244,
-          "percent_change_7d": -1.57905816,
-          "percent_change_30d": 15.14020669,
-          "percent_change_60d": 43.19822578,
-          "percent_change_90d": 26.87439424,
-          "market_cap": 898114141453.8834,
-          "market_cap_dominance": 42.4971,
-          "fully_diluted_market_cap": 1003075215524.02,
-          "last_updated": "2021-08-31T13:36:29.000Z"
+        "id": "bitcoin",
+        "symbol": "btc",
+        "name": "Bitcoin",
+        "image": "https://assets.coingecko.com/coins/images/1/large/bitcoin.png?1547033579",
+        "current_price": 47739,
+        "market_cap": 896246492509,
+        "market_cap_rank": 1,
+        "fully_diluted_valuation": 1000949052202,
+        "total_volume": 37248724719,
+        "high_24h": 48257,
+        "low_24h": 46659,
+        "price_change_24h": 316.29,
+        "price_change_percentage_24h": 0.66695,
+        "market_cap_change_24h": 2232474738,
+        "market_cap_change_percentage_24h": 0.24971,
+        "circulating_supply": 18803331.0,
+        "total_supply": 21000000.0,
+        "max_supply": 21000000.0,
+        "ath": 64805,
+        "ath_change_percentage": -26.32857,
+        "ath_date": "2021-04-14T11:54:46.763Z",
+        "atl": 67.81,
+        "atl_change_percentage": 70307.41756,
+        "atl_date": "2013-07-06T00:00:00.000Z",
+        "roi": null,
+        "last_updated": "2021-09-01T10:26:28.322Z"
+    
         }
       }
-    },
+    }
     {
   ```
 
@@ -55,8 +56,6 @@ Bitcoin example
     - circulating supply 
     - total supply
     - market cap 
-    - 30 day chart 
-    - 90 day chart 
   - Create dropdown link to explain site 
 
 
