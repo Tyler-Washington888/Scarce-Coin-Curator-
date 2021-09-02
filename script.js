@@ -2,17 +2,17 @@ const BASE_URL = "http://api.coingecko.com/api/v3/coins/markets?vs_currency=usd"
 
 
 
-async function getGoodData(index) {
+async function getGoodData(index = 0) {
   try {
     let res = await axios.get(`${BASE_URL}`, { crossdomain: true });
     let coinData = res.data[index];
-    for (let i = 0; i < 50; i++) {
-      // let supply = res.data[index].circulating_supply;
-      // if (supply <= 20000000) {
-      displayToTable(coinData);
-      // }
-    }// displayCoin(coinData)
-  } catch (error) {
+    // for (let i = 0; i < 50; i++) {
+    // let supply = res.data[index].circulating_supply;
+    // if (supply <= 20000000) {
+    displayToTable(coinData);
+    // }
+  }// displayCoin(coinData)
+  catch (error) {
     console.log(error);
   }
 }
@@ -36,10 +36,6 @@ function displayToTable(coinData) {
   newTableRow.appendChild(newDataCell9);
   let newDataCell2 = document.createElement('TD');
   newDataCell2.class = 'coinName';
-  // let coinImage = document.createElement('img');
-  // coinImage.class = 'coinImage'
-  // coinImage.src = coinData.image;
-  // newDataCell2.appendChild(coinImage);
   newDataCell2.innerHTML = `${coinData.name} ${coinData.symbol}`;
   newTableRow.append(newDataCell2);
   let newDataCell3 = document.createElement('TD');
