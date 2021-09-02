@@ -2,17 +2,17 @@ const BASE_URL = "http://api.coingecko.com/api/v3/coins/markets?vs_currency=usd"
 
 
 
-async function getGoodData(index = 0) {
+async function getGoodData() {
   try {
     let res = await axios.get(`${BASE_URL}`, { crossdomain: true });
-    let coinData = res.data[index];
-    // for (let i = 0; i < 50; i++) {
-    // let supply = res.data[index].circulating_supply;
-    // if (supply <= 20000000) {
-    displayToTable(coinData);
-    // }
-  }// displayCoin(coinData)
-  catch (error) {
+    for (let i = 0; i < 100; i++) {
+      let coinData = res.data[i];
+      let supply = res.data[i].circulating_supply;
+      if (supply <= 20000000) {
+        displayToTable(coinData);
+      }
+    }
+  } catch (error) {
     console.log(error);
   }
 }
@@ -24,10 +24,16 @@ function displayToTable(coinData) {
   newDataCell0.class = 'blankLeft';
   newDataCell0.innerHTML = '';
   newTableRow.append(newDataCell0);
+
   let newDataCell1 = document.createElement('TD');
   newDataCell1.class = 'coinRank';
-  newDataCell1.innerHTML = coinData.market_cap_rank;
+  if (coinData.market_cap_rank === undefined) {
+    newDataCell1.innerHTML = " ";
+  } else {
+    newDataCell1.innerHTML = coinData.market_cap_rank;
+  }
   newTableRow.append(newDataCell1);
+
   let newDataCell9 = document.createElement('TD');
   let coinImage = document.createElement('img');
   coinImage.class = 'coinImage'
@@ -36,11 +42,11 @@ function displayToTable(coinData) {
   newTableRow.appendChild(newDataCell9);
   let newDataCell2 = document.createElement('TD');
   newDataCell2.class = 'coinName';
-  newDataCell2.innerHTML = `${coinData.name} ${coinData.symbol}`;
+  newDataCell2.innerHTML = `${coinData.name} <span style="text-transform:uppercase">${coinData.symbol}</span>`;
   newTableRow.append(newDataCell2);
   let newDataCell3 = document.createElement('TD');
   newDataCell3.class = 'coinPrice';
-  newDataCell3.innerHTML = `${'$'}${coinData.current_price} `
+  newDataCell3.innerHTML = `${'$'}${coinData.current_price}`
   newTableRow.append(newDataCell3);
   let newDataCell4 = document.createElement('TD');
   newDataCell4.class = 'coinCirculatingSupply';
@@ -52,7 +58,7 @@ function displayToTable(coinData) {
   newTableRow.append(newDataCell5);
   let newDataCell6 = document.createElement('TD');
   newDataCell6.class = 'coinMarketCap';
-  newDataCell6.innerHTML = coinData.market_cap;
+  newDataCell6.innerHTML = `${'$'}${coinData.market_cap}`
   newTableRow.append(newDataCell6);
   let newDataCell7 = document.createElement('TD');
   newDataCell7.class = 'blankRight';
@@ -99,8 +105,3 @@ function displayToTable(coinData) {
 
 
 // }
-
-
-
-
-
