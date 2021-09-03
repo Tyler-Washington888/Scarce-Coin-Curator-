@@ -9,15 +9,24 @@ async function fetchSearch() {
     let searchedCoin = input.value
     let SEARCH_URL = `http://api.coingecko.com/api/v3/coins/${searchedCoin}?vs_currency=usd`
     let res = await axios.get(`${SEARCH_URL}`, { crossdomain: true });
-    searchCoin.innerHTML = '';
+    let coinInfoData = document.querySelector('.coinInfoData');
     let rightImageDiv = document.createElement('img');
     rightImageDiv.class = 'rightImageDiv';
     rightImageDiv.src = res.data.image.large;
     console.log(res.data.image.large);
-    searchCoin.appendChild(rightImageDiv);
-    let h2 = document.createElement('h2');
-    h2.innerText = res.data.name;
-    searchCoin.appendChild(h2);
+    coinInfoData.appendChild(rightImageDiv);
+    let nameH1 = document.createElement('h1');
+    nameH1.innerText = res.data.name;
+    coinInfoData.appendChild(nameH1);
+    let symbolH2 = document.createElement('h2')
+    symbolH2.innerText = res.data.symbol;
+    coinInfoData.appendChild(symbolH2);
+    let priceRight = document.createElement('h2')
+    priceRight.innerText = `${'$'}${res.data.market_data.current_price.usd}`;
+    coinInfoData.appendChild(priceRight);
+    let circSupply = document.createElement('h2')
+    circSupply.innerText = res.data.market_data.circulating_supply;
+    coinInfoData.appendChild(circSupply);
   } catch (error) {
     console.log(error);
   }

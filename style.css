@@ -20,18 +20,26 @@
 span{
   color: green;
 }
+#aboutUs{
+margin-bottom: 10px;
+}
 .mainPageContent{
   display: flex;
   flex-direction: row;
   justify-content: center;
   padding-top: 30px;
   padding-bottom: 30px;
+  border-color: green;
 }
 
 #fullTable {
   width: 60%;
   max-height: 30px;
   text-align: justify;
+}
+.rightImageDiv {
+  width: 60px;
+  height: 60px;
 }
 img { 
   width: 20px;
