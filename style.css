@@ -1,8 +1,64 @@
-header {
-  background-image: url('https://wallpapercave.com/wp/wp3075493.jpg')
+#fit{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+
+}
+#pageHeader {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  background-image: url('https://static.vecteezy.com/system/resources/previews/000/680/496/non_2x/abstract-green-digital-geometric-lines-background.jpg');
+  padding-bottom: 40px;
+  border-radius: 10px 10px 10px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  }
+span{
+  color: green;
+}
+.mainPageContent{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
+#fullTable {
+  width: 60%;
+  max-height: 30px;
+  text-align: justify;
+}
 img { 
   width: 20px;
   height: 20px;
+}
+.searchCoin {
+  text-align: center;
+
+width: 300px;
+}
+.rightCoinDiv {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: space-evenly;
+
+}
+footer{
+  height: 50px;
+  background-image: url('https://static.vecteezy.com/system/resources/previews/000/680/496/non_2x/abstract-green-digital-geometric-lines-background.jpg');
+  padding-bottom: 40px;
+  border-radius: 10px 10px 10px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+@media screen and (max-width: 700px){
+  .display{
+    flex-direction: column;
+  }
 }

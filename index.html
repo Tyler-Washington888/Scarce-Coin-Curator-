@@ -11,34 +11,39 @@
   <title>Document</title>
 </head>
 
-<body>
-  <header>
-    <h1>Scarce Coin Curations</h1>
-    <h2>Be the Few</h2>
-    <nav>About Us</nav>
-  </header>
-  <table>
-    <thead>
-      <tr>
-        <th></th>
-        <th>#</th>
-        <th></th>
-        <th class='headName'>Name</th>
-        <th>Price</th>
-        <th>Circulating Supply</th>
-        <th>Total Supply</th>
-        <th>Market Cap</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-    </tbody>
-  </table>
-  <!-- <button class="button">Click Me</button> -->
-  <div class="coinList">
-
+<body id="pageBody">
+  <div id="fit">
+    <header id="pageHeader">
+      <h1>Scarce Coin Curations</h1>
+      <h2>Be the Few</h2>
+      <nav><a href="About.html"><span>About Us</span></a></nav>
+      <nav><input type="text" id="search"> <button id="button">search</button></nav>
+    </header>
+    <main class="mainPageContent">
+      <table id="fullTable">
+        <thead id="fullTableHeader">
+          <tr>
+            <th class="tableHeadElement"></th>
+            <th class="tableHeadElement">#</th>
+            <th class="tableHeadElement"></th>
+            <th class="tableHeadElement">Name</th>
+            <th class="tableHeadElement">Price</th>
+            <th class="tableHeadElement">Circulating Supply</th>
+            <th class="tableHeadElement">Total Supply</th>
+            <th class="tableHeadElement">Market Cap</th>
+            <th class="tableHeadElement"></th>
+          </tr>
+        </thead>
+        <tbody id="fullTableBody">
+        </tbody>
+      </table>
+      <div class="searchCoin">
+        <h1 class="coinInfo">Coin Info</h1>
+      </div>
+    </main>
+    <footer>
+    </footer>
   </div>
-
 </body>
 
 </html>
