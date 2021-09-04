@@ -10,10 +10,10 @@ async function fetchSearch() {
     let SEARCH_URL = `http://api.coingecko.com/api/v3/coins/${searchedCoin}?vs_currency=usd`
     let res = await axios.get(`${SEARCH_URL}`, { crossdomain: true });
     let coinInfoData = document.querySelector('.coinInfoData');
+    coinInfoData.innerText = "";
     let rightImageDiv = document.createElement('img');
-    rightImageDiv.class = 'rightImageDiv';
+    rightImageDiv.id = 'rightImage';
     rightImageDiv.src = res.data.image.large;
-    console.log(res.data.image.large);
     coinInfoData.appendChild(rightImageDiv);
     let nameH1 = document.createElement('h1');
     nameH1.innerText = res.data.name;
@@ -27,6 +27,28 @@ async function fetchSearch() {
     let circSupply = document.createElement('h2')
     circSupply.innerText = res.data.market_data.circulating_supply;
     coinInfoData.appendChild(circSupply);
+    let scarcityScore = document.createElement('h2')
+    if (res.data.market_data.circulating_supply <= 20000000) {
+      scarcityScore.innerText = "Scarcity Score: 5";
+      coinInfoData.appendChild(scarcityScore);
+      console.log(scarcityScore);
+    } else if (res.data.market_data.circulating_supply > 20000000 && res.data.market_data.circulating_supply <= 100000000) {
+      scarcityScore.innerText = "Scarcity Score: 4";
+      coinInfoData.appendChild(scarcityScore);
+      console.log(scarcityScore);
+    } else if (res.data.market_data.circulating_supply > 100000000 && res.data.market_data.circulating_supply <= 1000000000) {
+      scarcityScore.innerText = "Scarcity Score: 3";
+      coinInfoData.appendChild(scarcityScore);
+      console.log(scarcityScore);
+    } else if (res.data.market_data.circulating_supply > 100000000 && res.data.market_data.circulating_supply <= 10000000000) {
+      scarcityScore.innerText = "Scarcity Score: 2";
+      coinInfoData.appendChild(scarcityScore);
+      console.log(scarcityScore);
+    } else {
+      scarcityScore.innerText = "Scarcity Score: 1";
+      coinInfoData.appendChild(scarcityScore);
+      console.log(scarcityScore);
+    }
   } catch (error) {
     console.log(error);
   }
