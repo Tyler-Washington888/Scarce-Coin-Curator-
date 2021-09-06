@@ -1,51 +1,83 @@
-const BASE_URL = "http://api.coingecko.com/api/v3/coins/markets?vs_currency=usd";
-
 const button = document.querySelector('button');
 const input = document.querySelector('#search');
-const searchCoin = document.querySelector(".searchCoin")
-button.addEventListener('click', fetchSearch)
-async function fetchSearch() {
+const searchCoin = document.querySelector(".searchCoin");
+
+const BASE_URL = "http://api.coingecko.com/api/v3/coins/markets?vs_currency=usd";
+
+function cryptoPriceFormat(price) {
+  if (price < .01) {
+    price *= 100000;
+    price = Math.round(price);
+    return '$' + (price / 100000).toString();
+  }
+  return new Intl.NumberFormat('en', { style: 'currency', currency: 'USD', useGrouping: true }).format(price);
+}
+
+async function fetchSearch(coin) {
   try {
-    let searchedCoin = input.value
-    let SEARCH_URL = `http://api.coingecko.com/api/v3/coins/${searchedCoin}?vs_currency=usd`
-    let res = await axios.get(`${SEARCH_URL}`, { crossdomain: true });
+    // get data from api
+    let searchUrl = `http://api.coingecko.com/api/v3/coins/${coin}?vs_currency=usd`
+    let res = await axios.get(searchUrl, { crossdomain: true });
+
+    // empting the coin query 
     let coinInfoData = document.querySelector('.coinInfoData');
     coinInfoData.innerText = "";
+
     let rightImageDiv = document.createElement('img');
     rightImageDiv.id = 'rightImage';
-    rightImageDiv.src = res.data.image.large;
-    coinInfoData.appendChild(rightImageDiv);
     let nameH1 = document.createElement('h1');
+    nameH1.id = "rightName"
+    let symbolH2 = document.createElement('h2');
+    symbolH2.id = "rightSymbol"
+    let priceChange = document.createElement('h2');
+    priceChange.id = "rightPriceChange"
+    let priceRight = document.createElement('h2');
+    priceRight.id = "rightPrice"
+    let circSupply = document.createElement('h2');
+    circSupply.id = "rightSupply"
+    let scarcityScore = document.createElement('h2');
+    scarcityScore.id = 'rightScarcityScore';
+
+    rightImageDiv.src = res.data.image.large;
     nameH1.innerText = res.data.name;
+    priceChange.innerText = res.data.market_data.price_change_percentage_24h.toFixed(2) + '%';
+    if (res.data.market_data.price_change_percentage_24h < 0) {
+      priceChange.style.color = 'red';
+    } else {
+      priceChange.style.color = 'lightgreen';
+    }
+    symbolH2.innerText = res.data.symbol.toUpperCase();
+    priceRight.innerText = cryptoPriceFormat(res.data.market_data.current_price.usd);
+    circSupply.innerText = new Intl.NumberFormat('en', { style: 'decimal', useGrouping: true }).format(res.data.market_data.circulating_supply);
+
+    coinInfoData.appendChild(rightImageDiv);
     coinInfoData.appendChild(nameH1);
-    let symbolH2 = document.createElement('h2')
-    symbolH2.innerText = res.data.symbol;
     coinInfoData.appendChild(symbolH2);
-    let priceRight = document.createElement('h2')
-    priceRight.innerText = `${'$'}${res.data.market_data.current_price.usd}`;
+    coinInfoData.appendChild(priceChange);
     coinInfoData.appendChild(priceRight);
-    let circSupply = document.createElement('h2')
-    circSupply.innerText = res.data.market_data.circulating_supply;
     coinInfoData.appendChild(circSupply);
-    let scarcityScore = document.createElement('h2')
-    if (res.data.market_data.circulating_supply <= 20000000) {
-      scarcityScore.innerText = "Scarcity Score: 5";
-      coinInfoData.appendChild(scarcityScore);
-      console.log(scarcityScore);
-    } else if (res.data.market_data.circulating_supply > 20000000 && res.data.market_data.circulating_supply <= 100000000) {
-      scarcityScore.innerText = "Scarcity Score: 4";
-      coinInfoData.appendChild(scarcityScore);
-      console.log(scarcityScore);
-    } else if (res.data.market_data.circulating_supply > 100000000 && res.data.market_data.circulating_supply <= 1000000000) {
-      scarcityScore.innerText = "Scarcity Score: 3";
-      coinInfoData.appendChild(scarcityScore);
-      console.log(scarcityScore);
-    } else if (res.data.market_data.circulating_supply > 100000000 && res.data.market_data.circulating_supply <= 10000000000) {
+
+
+    let coinCircSupply = res.data.market_data.circulating_supply;
+
+    scarcityScore.innerText = "Scarcity Score: 1";
+    coinInfoData.appendChild(scarcityScore);
+    console.log(scarcityScore);
+
+    if (coinCircSupply <= 10000000000) {
       scarcityScore.innerText = "Scarcity Score: 2";
       coinInfoData.appendChild(scarcityScore);
       console.log(scarcityScore);
-    } else {
-      scarcityScore.innerText = "Scarcity Score: 1";
+    } if (coinCircSupply <= 1000000000) {
+      scarcityScore.innerText = "Scarcity Score: 3";
+      coinInfoData.appendChild(scarcityScore);
+      console.log(scarcityScore);
+    } if (coinCircSupply <= 100000000) {
+      scarcityScore.innerText = "Scarcity Score: 4";
+      coinInfoData.appendChild(scarcityScore);
+      console.log(scarcityScore);
+    } if (coinCircSupply <= 20000000) {
+      scarcityScore.innerText = "Scarcity Score: 5";
       coinInfoData.appendChild(scarcityScore);
       console.log(scarcityScore);
     }
@@ -53,6 +85,10 @@ async function fetchSearch() {
     console.log(error);
   }
 }
+button.addEventListener('click', () => fetchSearch(input.value));
+
+
+
 
 async function getGoodData() {
   try {
@@ -73,17 +109,9 @@ getGoodData();
 function displayToTable(coinData) {
   let newTableRow = document.createElement('TR');
   newTableRow.class = 'newTableRow';
-  let newDataCell0 = document.createElement('TD');
-  newDataCell0.class = 'tableDataElement';
-  newDataCell0.innerHTML = '';
-  newTableRow.append(newDataCell0);
   let newDataCell1 = document.createElement('TD');
-  newDataCell1.class = 'tableDataElement';
-  if (coinData.market_cap_rank === undefined) {
-    newDataCell1.innerHTML = " ";
-  } else {
-    newDataCell1.innerHTML = coinData.market_cap_rank;
-  }
+  newDataCell1.id = 'coinRankData';
+  newDataCell1.innerHTML = coinData.market_cap_rank;
   newTableRow.append(newDataCell1);
   let newDataCell9 = document.createElement('TD');
   let coinImage = document.createElement('img');
@@ -93,29 +121,41 @@ function displayToTable(coinData) {
   newTableRow.appendChild(newDataCell9);
   let newDataCell2 = document.createElement('TD');
   newDataCell2.class = 'tableDataElement';
-  newDataCell2.innerHTML = `${coinData.name} <span style="text-transform:uppercase">${coinData.symbol}</span>`;
+  newDataCell2.id = 'nameSymbol';
+  newDataCell2.innerHTML = `${coinData.name} <span class="saveDisplay" style="text-transform:uppercase">${coinData.symbol}</span>`;
   newTableRow.append(newDataCell2);
   let newDataCell3 = document.createElement('TD');
   newDataCell3.class = 'tableDataElement';
-  newDataCell3.innerHTML = `${'$'}${coinData.current_price}`
+  newDataCell3.innerHTML = new Intl.NumberFormat('en', { style: 'currency', currency: 'USD', useGrouping: true }).format(coinData.current_price);
   newTableRow.append(newDataCell3);
   let newDataCell4 = document.createElement('TD');
   newDataCell4.class = 'tableDataElement';
-  newDataCell4.innerHTML = coinData.circulating_supply;
+  newDataCell4.innerHTML = new Intl.NumberFormat('en', { style: 'decimal', useGrouping: true }).format(coinData.circulating_supply);
   newTableRow.append(newDataCell4);
   let newDataCell5 = document.createElement('TD');
-  newDataCell5.class = 'tableDataElement';
-  newDataCell5.innerHTML = coinData.total_supply;
+  newDataCell5.id = 'totalSupply';
+  if (coinData.id == 'monero') {
+    newDataCell5.innerHTML = '17,987,124';
+  } else {
+    newDataCell5.innerHTML = new Intl.NumberFormat('en', { style: 'decimal', useGrouping: true }).format(coinData.total_supply);
+  }
   newTableRow.append(newDataCell5);
   let newDataCell6 = document.createElement('TD');
-  newDataCell6.class = 'coinMarketCap';
-  newDataCell6.innerHTML = `${'$'}${coinData.market_cap}`
+  newDataCell6.id = 'coinMarketCap';
+  let uglyNum = Math.round((coinData.market_cap));
+  newDataCell6.innerHTML = '$' + new Intl.NumberFormat('en', { style: 'decimal', currency: 'USD', useGrouping: true }).format(uglyNum);
   newTableRow.append(newDataCell6);
-  let newDataCell7 = document.createElement('TD');
-  newDataCell7.class = 'blankRight';
-  newDataCell7.innerHTML = '';
-  newTableRow.append(newDataCell7)
+
+  let newDataCell10 = document.createElement('TD');
+  newDataCell10.class = "24hrCahnge"
+  newDataCell10.innerText = coinData.price_change_percentage_24h.toFixed(2) + '%';
+  if (coinData.price_change_percentage_24h < 0) {
+    newDataCell10.style.color = 'red';
+  } else {
+    newDataCell10.style.color = 'lightgreen';
+  }
+  newTableRow.append(newDataCell10);
   let tableBody = document.querySelector('tbody');
   tableBody.appendChild(newTableRow);
 }
-
+fetchSearch('bitcoin');
